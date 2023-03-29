@@ -1,15 +1,34 @@
-import { useState } from 'react'
+import Navbar from "@/scenes/navbar";
+import { useEffect, useState } from "react";
+import { SelectedPage } from "./shared/types";
 
-import viteLogo from '/vite.svg'
-
-
-function App() {
-
-  return (
-    <div className="app">
-      APP
-    </div>
-  )
+enum SelectedPage {
+  Home = "home",
+  Benefits = "benefits",
+  OurClasses = "ourclasses",
+  ContactUs = "contactus",
 }
 
-export default App
+function App() {
+  const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home)
+  const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true)
+
+  useEffect(()=>{
+    const handleScroll = () =>{
+      if (window.scrollY === 0){
+        setIsTopOfPage(true)
+        setSelectedPage(SelectedPage.Home)
+      }
+      if(window.scrollY !== 0 ) setIsTopOfPage(false)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll",handleScroll)
+  },[])
+  return (
+    <div className="app bg-gray-20">
+      <Navbar isTopOfpage={isTopOfPage} selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
+    </div>
+  );
+}
+
+export default App;
