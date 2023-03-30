@@ -1,13 +1,7 @@
 import Navbar from "@/scenes/navbar";
+import Home from "@/scenes/home"
 import { useEffect, useState } from "react";
 import { SelectedPage } from "./shared/types";
-
-enum SelectedPage {
-  Home = "home",
-  Benefits = "benefits",
-  OurClasses = "ourclasses",
-  ContactUs = "contactus",
-}
 
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home)
@@ -26,7 +20,12 @@ function App() {
   },[])
   return (
     <div className="app bg-gray-20">
-      <Navbar isTopOfpage={isTopOfPage} selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
+      <Navbar
+        isTopOfpage={isTopOfPage}
+        selectedPage={selectedPage}
+        setSelectedPage={setSelectedPage}
+      />
+      <Home setSelectedPage={setSelectedPage}/>
     </div>
   );
 }
